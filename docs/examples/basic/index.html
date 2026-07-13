@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Basic Async Button Example | A11y Async Button</title>
+    <meta
+      name="description"
+      content="Run the basic A11y Async Button example with success and error states, repeat-click protection, timed reset, and live announcements."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/a11y-async-button/examples/basic/"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Basic Async Button Example | A11y Async Button"
+    />
+    <meta
+      property="og:description"
+      content="Run the basic A11y Async Button example with success and error states, repeat-click protection, timed reset, and live announcements."
+    />
+    <meta
+      property="og:url"
+      content="https://vmitsaras.github.io/a11y-async-button/examples/basic/"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Basic Async Button Example | A11y Async Button"
+    />
+    <meta
+      name="twitter:description"
+      content="Run the basic A11y Async Button example with success and error states, repeat-click protection, timed reset, and live announcements."
+    />
+    <link rel="stylesheet" href="../../assets/a11y-async-button.css" />
+    <link rel="stylesheet" href="../../assets/demo-page.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://vmitsaras.github.io/a11y-async-button/#website",
+            "url": "https://vmitsaras.github.io/a11y-async-button/",
+            "name": "A11y Async Button"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://vmitsaras.github.io/a11y-async-button/examples/basic/#webpage",
+            "url": "https://vmitsaras.github.io/a11y-async-button/examples/basic/",
+            "name": "Basic Async Button Example | A11y Async Button",
+            "description": "Run the basic A11y Async Button example with success and error states, repeat-click protection, timed reset, and live announcements.",
+            "inLanguage": "en",
+            "isPartOf": {
+              "@id": "https://vmitsaras.github.io/a11y-async-button/#website"
+            },
+            "mainEntity": {
+              "@id": "https://vmitsaras.github.io/a11y-async-button/examples/basic/#software"
+            }
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://vmitsaras.github.io/a11y-async-button/examples/basic/#software",
+            "name": "A11y Async Button",
+            "alternateName": "a11y-async-button",
+            "description": "Accessible async state management for semantic button elements.",
+            "codeRepository": "https://github.com/vmitsaras/a11y-async-button",
+            "programmingLanguage": ["TypeScript", "JavaScript"],
+            "runtimePlatform": "Browser",
+            "version": "1.0.0",
+            "license": "MIT",
+            "keywords": [
+              "accessibility",
+              "a11y",
+              "button",
+              "async",
+              "aria",
+              "typescript"
+            ],
+            "author": {
+              "@id": "https://github.com/vmitsaras/#person"
+            },
+            "targetProduct": {
+              "@type": "SoftwareApplication",
+              "name": "Modern web browsers",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Any",
+              "runtimePlatform": "Browser"
+            },
+            "sameAs": [
+              "https://github.com/vmitsaras/a11y-async-button",
+              "https://www.npmjs.com/package/a11y-async-button"
+            ]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://github.com/vmitsaras/#person",
+            "name": "Vasileios Mitsaras",
+            "url": "https://github.com/vmitsaras/",
+            "sameAs": [
+              "https://github.com/vmitsaras/",
+              "https://linkedin.com/in/vasilis-mitsaras"
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="demo-site-header"><div class="demo-site-header__inner demo-page__shell">
+      <a class="demo-site-header__brand" href="../../"><span>A11y</span> Async Button</a>
+      <nav class="demo-site-header__nav" aria-label="Primary navigation"><a href="../../#examples" aria-current="page">Examples</a><a href="../../#install">Install</a><a href="https://github.com/vmitsaras/a11y-async-button">GitHub</a></nav>
+    </div></div>
+
+    <header class="demo-hero">
+      <div class="demo-page__shell">
+        <p class="demo-hero__eyebrow">Basic example</p>
+        <h1>A11y Async Button basic example</h1>
+        <p class="demo-hero__description">
+          Two semantic buttons demonstrate loading, success, error, repeat-click
+          protection, live announcements, and timed reset behavior.
+        </p>
+        <nav class="demo-hero__links" aria-label="Example links">
+          <a class="demo-button demo-button--primary" href="#demo">Try example</a>
+          <a class="demo-button" href="../../">Full documentation</a>
+          <a class="demo-button" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="demo-page__main demo-page__shell">
+      <section
+        class="demo-section demo-section--band"
+        id="demo"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Live demo</p>
+          <h2 id="demo-title">Success and error flows</h2>
+          <p>
+            Activate either button. The visible badge mirrors the plugin state
+            while the button text and ARIA state change.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="demo-example">
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-loading-text="Saving..."
+                data-success-text="Saved"
+                data-error-text="Could not save"
+                data-reset-delay="1800"
+                data-preserve-width
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Save changes</span>
+              </button>
+              <span class="state-badge" data-state-badge data-state="idle">
+                idle
+              </span>
+            </div>
+            <p>Completes successfully after a short simulated delay.</p>
+          </div>
+
+          <div class="demo-example">
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-loading-text="Sending..."
+                data-success-text="Sent"
+                data-error-text="Network error"
+                data-reset-delay="2200"
+                data-preserve-width
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Send test error</span>
+              </button>
+              <span class="state-badge" data-state-badge data-state="idle">
+                idle
+              </span>
+            </div>
+            <p>Moves to error state after a short simulated delay.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section" aria-labelledby="example-code-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Example code</p>
+          <h2 id="example-code-title">Initialize all matching buttons</h2>
+        </div>
+        <pre><code>import { initAsyncButtons } from "a11y-async-button";
+import "a11y-async-button/styles.css";
+
+const instances = initAsyncButtons();
+
+for (const instance of instances) {
+  instance.element.addEventListener("a11y-async-button:state-change", (event) => {
+    console.log(event.detail.state);
+  });
+}</code></pre>
+      </section>
+    </main>
+
+    <footer class="demo-footer demo-page__shell" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Async Button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">Vasileios Mitsaras</a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a class="demo-footer__link" href="https://linkedin.com/in/vasilis-mitsaras">LinkedIn profile</a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-async-button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://www.npmjs.com/package/a11y-async-button">npm package</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button#readme">Documentation</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { initAsyncButtons } from "../../assets/a11y-async-button.js";
+
+      const instances = initAsyncButtons();
+      const [successButton, errorButton] = instances;
+
+      function updateBadge(badge, state) {
+        if (!badge) return;
+        badge.textContent = state;
+        badge.dataset.state = state;
+      }
+
+      for (const instance of instances) {
+        const badge = instance.element
+          .closest(".demo-example")
+          ?.querySelector("[data-state-badge]");
+
+        instance.element.addEventListener(
+          "a11y-async-button:state-change",
+          (event) => {
+            updateBadge(badge, event.detail.state);
+          }
+        );
+      }
+
+      successButton?.element.addEventListener("click", () => {
+        if (successButton.getState() !== "idle") return;
+
+        successButton.loading();
+        window.setTimeout(() => successButton.success(), 900);
+      });
+
+      errorButton?.element.addEventListener("click", () => {
+        if (errorButton.getState() !== "idle") return;
+
+        errorButton.loading();
+        window.setTimeout(() => errorButton.error(), 900);
+      });
+    </script>
+  </body>
+</html>

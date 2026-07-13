@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Debug Addon Example | A11y Async Button</title>
+    <meta
+      name="description"
+      content="Try the optional A11y Async Button debug addon with structured markup diagnostics and actionable recommendations."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/a11y-async-button/examples/debug/"
+    />
+    <link rel="stylesheet" href="../../assets/a11y-async-button.css" />
+    <link rel="stylesheet" href="../../assets/demo-page.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="demo-site-header"><div class="demo-site-header__inner demo-page__shell">
+      <a class="demo-site-header__brand" href="../../"><span>A11y</span> Async Button</a>
+      <nav class="demo-site-header__nav" aria-label="Primary navigation"><a href="../../#examples" aria-current="page">Examples</a><a href="../../#install">Install</a><a href="https://github.com/vmitsaras/a11y-async-button">GitHub</a></nav>
+    </div></div>
+
+    <header class="demo-hero">
+      <div class="demo-page__shell">
+        <p class="demo-hero__eyebrow">Addon example</p>
+        <h1>Async button debug report</h1>
+        <p class="demo-hero__description">
+          The optional debug addon scans async button and form-addon markup,
+          then returns structured findings with practical recommendations.
+        </p>
+        <nav class="demo-hero__links" aria-label="Example links">
+          <a class="demo-button demo-button--primary" href="#demo">Try example</a>
+          <a class="demo-button" href="../../">Full documentation</a>
+          <a class="demo-button" href="../form/">Form addon example</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="demo-page__main demo-page__shell">
+      <section class="demo-section demo-facts" aria-labelledby="facts-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Quick facts</p>
+          <h2 id="facts-title">What this addon covers</h2>
+        </div>
+        <dl class="demo-facts__list">
+          <div>
+            <dt>Import path</dt>
+            <dd><code>a11y-async-button/addons/debug</code></dd>
+          </div>
+          <div>
+            <dt>Pattern</dt>
+            <dd>Developer diagnostics</dd>
+          </div>
+          <div>
+            <dt>Runtime behavior</dt>
+            <dd>Scans and reports only</dd>
+          </div>
+          <div>
+            <dt>Runtime deps</dt>
+            <dd>None</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section
+        class="demo-section demo-section--band"
+        id="demo"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Live demo</p>
+          <h2 id="demo-title">Scan intentionally flawed markup</h2>
+          <p>
+            The sample markup is hidden from the interactive page but remains in
+            the DOM so the debug addon can inspect it and render findings below.
+          </p>
+        </div>
+
+        <div class="demo-example">
+          <div class="demo-example__body">
+            <button class="demo-button demo-button--primary" type="button" data-run-debug>
+              Run scan
+            </button>
+            <label>
+              <input type="checkbox" data-include-info checked />
+              Include informational findings
+            </label>
+            <label>
+              <input type="checkbox" data-log-console />
+              Log to console
+            </label>
+          </div>
+          <p class="demo-status" data-debug-summary role="status" aria-live="polite">
+            Debug report has not run yet.
+          </p>
+          <ol class="demo-diagnostics" data-debug-results></ol>
+        </div>
+
+        <div data-debug-target hidden>
+          <a data-a11y-async-button href="#">Fake async link</a>
+
+          <button
+            id="duplicate-debug-id"
+            data-a11y-async-button
+            data-reset-delay="-1"
+            data-announce="sometimes"
+            data-live-region="#missing-debug-status"
+            data-live-region-politeness="loud"
+            aria-describedby="missing-debug-description"
+          ></button>
+
+          <span id="duplicate-debug-id"></span>
+
+          <div data-a11y-async-form></div>
+
+          <form data-a11y-async-form data-a11y-async-form-validate="maybe">
+            <p>No submit button or status element.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="demo-section" aria-labelledby="try-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Try it</p>
+          <h2 id="try-title">Useful checks</h2>
+        </div>
+        <ul class="demo-list">
+          <li>Run the scan and compare error, warning, and info counts.</li>
+          <li>Toggle informational findings to focus on release-blocking problems.</li>
+          <li>Enable console logging to see the same findings through the logger API.</li>
+          <li>Review each recommendation as a copy-edit checklist for markup fixes.</li>
+        </ul>
+      </section>
+
+      <section class="demo-section" aria-labelledby="code-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Example code</p>
+          <h2 id="code-title">Import only the debug addon</h2>
+        </div>
+        <pre><code>import { createAsyncButtonDebugReport } from "a11y-async-button/addons/debug";
+
+const report = createAsyncButtonDebugReport(document, {
+  includeInfo: true,
+  log: true
+});
+
+for (const finding of report.findings) {
+  console.log(finding.code, finding.recommendation);
+}</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="a11y-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Accessibility notes</p>
+          <h2 id="a11y-title">What changes for users</h2>
+        </div>
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Runtime behavior</h3>
+            <ul class="demo-list">
+              <li>The addon does not initialize buttons or forms.</li>
+              <li>The addon does not move focus, change ARIA, or write to storage.</li>
+              <li>Console logging happens only when requested.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Findings</h3>
+            <ul class="demo-list">
+              <li>Errors identify markup that breaks the plugin contract.</li>
+              <li>Warnings identify likely user-experience or accessibility bugs.</li>
+              <li>Info findings point to optional polish such as state-specific text.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="demo-footer demo-page__shell" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Async Button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">Vasileios Mitsaras</a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a class="demo-footer__link" href="https://linkedin.com/in/vasilis-mitsaras">LinkedIn profile</a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-async-button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://www.npmjs.com/package/a11y-async-button">npm package</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="../../">Documentation</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { createAsyncButtonDebugReport } from "../../assets/addons/debug.js";
+
+      const target = document.querySelector("[data-debug-target]");
+      const runButton = document.querySelector("[data-run-debug]");
+      const includeInfo = document.querySelector("[data-include-info]");
+      const logConsole = document.querySelector("[data-log-console]");
+      const summary = document.querySelector("[data-debug-summary]");
+      const results = document.querySelector("[data-debug-results]");
+
+      function appendText(parent, text) {
+        parent.appendChild(document.createTextNode(text));
+      }
+
+      function renderFinding(finding) {
+        const item = document.createElement("li");
+        item.className = "demo-finding";
+        item.dataset.severity = finding.severity;
+
+        const title = document.createElement("p");
+        title.className = "demo-finding__title";
+        appendText(title, `${finding.severity.toUpperCase()}: ${finding.code}`);
+
+        const meta = document.createElement("p");
+        meta.className = "demo-finding__meta";
+        appendText(meta, `${finding.selector} - ${finding.message}`);
+
+        const recommendation = document.createElement("p");
+        recommendation.className = "demo-finding__recommendation";
+        appendText(recommendation, finding.recommendation);
+
+        item.append(title, meta, recommendation);
+        return item;
+      }
+
+      function renderReport() {
+        if (!target || !summary || !results) return;
+
+        const report = createAsyncButtonDebugReport(target, {
+          includeInfo: includeInfo instanceof HTMLInputElement && includeInfo.checked,
+          log: logConsole instanceof HTMLInputElement && logConsole.checked
+        });
+
+        summary.textContent = `${report.findings.length} findings: ${report.errorCount} errors, ${report.warningCount} warnings, ${report.infoCount} info.`;
+        results.replaceChildren(...report.findings.map(renderFinding));
+      }
+
+      if (runButton instanceof HTMLButtonElement) {
+        runButton.addEventListener("click", renderReport);
+      }
+
+      if (includeInfo instanceof HTMLInputElement) {
+        includeInfo.addEventListener("change", renderReport);
+      }
+
+      if (logConsole instanceof HTMLInputElement) {
+        logConsole.addEventListener("change", renderReport);
+      }
+
+      renderReport();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Retry Addon Example | A11y Async Button</title>
+    <meta
+      name="description"
+      content="Try the optional A11y Async Button retry addon with recoverable failures, retry text, max attempts, and final failure messaging."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/a11y-async-button/examples/retry/"
+    />
+    <link rel="stylesheet" href="../../assets/a11y-async-button.css" />
+    <link rel="stylesheet" href="../../assets/demo-page.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="demo-site-header"><div class="demo-site-header__inner demo-page__shell">
+      <a class="demo-site-header__brand" href="../../"><span>A11y</span> Async Button</a>
+      <nav class="demo-site-header__nav" aria-label="Primary navigation"><a href="../../#examples" aria-current="page">Examples</a><a href="../../#install">Install</a><a href="https://github.com/vmitsaras/a11y-async-button">GitHub</a></nav>
+    </div></div>
+
+    <header class="demo-hero">
+      <div class="demo-page__shell">
+        <p class="demo-hero__eyebrow">Addon example</p>
+        <h1>Async retry helper</h1>
+        <p class="demo-hero__description">
+          Recoverable actions can expose a clear try-again path while preserving
+          semantic button behavior, loading state, success text, and final
+          failure messaging.
+        </p>
+        <nav class="demo-hero__links" aria-label="Example links">
+          <a class="demo-button demo-button--primary" href="#demo">Try example</a>
+          <a class="demo-button" href="../../">Full documentation</a>
+          <a class="demo-button" href="../form/">Form addon example</a>
+          <a class="demo-button" href="../debug/">Debug addon example</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="demo-page__main demo-page__shell">
+      <section class="demo-section demo-facts" aria-labelledby="facts-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Quick facts</p>
+          <h2 id="facts-title">What this addon covers</h2>
+        </div>
+        <dl class="demo-facts__list">
+          <div>
+            <dt>Import path</dt>
+            <dd><code>a11y-async-button/addons/retry</code></dd>
+          </div>
+          <div>
+            <dt>Pattern</dt>
+            <dd>Recoverable async action helper</dd>
+          </div>
+          <div>
+            <dt>Attempts</dt>
+            <dd>Caller-owned async work with addon-owned retry state</dd>
+          </div>
+          <div>
+            <dt>Runtime deps</dt>
+            <dd>None beyond the core package</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section
+        class="demo-section demo-section--band"
+        id="demo"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Live demo</p>
+          <h2 id="demo-title">Retry recoverable failures</h2>
+          <p>
+            The save action fails once, then succeeds on retry. The upload action
+            always fails so the final error path is visible.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="demo-example">
+            <h3>Save after one failed attempt</h3>
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-a11y-async-retry
+                data-loading-text="Saving..."
+                data-success-text="Saved"
+                data-retry-text="Try saving again"
+                data-final-error-text="Save failed"
+                data-max-attempts="3"
+                data-preserve-width
+                data-retry-demo="save"
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Save draft</span>
+              </button>
+              <button class="demo-button" type="button" data-reset-demo="save">
+                Reset
+              </button>
+            </div>
+            <p class="demo-status" data-retry-status="save" role="status" aria-live="polite">
+              Ready to save.
+            </p>
+          </div>
+
+          <div class="demo-example">
+            <h3>Stop after max attempts</h3>
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-a11y-async-retry
+                data-loading-text="Uploading..."
+                data-success-text="Uploaded"
+                data-retry-text="Retry upload"
+                data-final-error-text="Upload failed"
+                data-max-attempts="2"
+                data-preserve-width
+                data-retry-demo="upload"
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Upload file</span>
+              </button>
+              <button class="demo-button" type="button" data-reset-demo="upload">
+                Reset
+              </button>
+            </div>
+            <p class="demo-status" data-retry-status="upload" role="status" aria-live="polite">
+              Ready to upload.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section" aria-labelledby="try-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Try it</p>
+          <h2 id="try-title">Useful checks</h2>
+        </div>
+        <ul class="demo-list">
+          <li>Activate Save draft once, then activate Try saving again.</li>
+          <li>Activate Upload file twice to reach the final failure message.</li>
+          <li>Use <kbd>Tab</kbd>, <kbd>Enter</kbd>, and <kbd>Space</kbd> to confirm native button behavior.</li>
+          <li>Use Reset to clear attempts and return each button to idle.</li>
+        </ul>
+      </section>
+
+      <section class="demo-section" aria-labelledby="code-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Example code</p>
+          <h2 id="code-title">Import only the retry addon</h2>
+        </div>
+        <pre><code>import { createAsyncButtonRetry } from "a11y-async-button/addons/retry";
+import "a11y-async-button/styles.css";
+
+createAsyncButtonRetry(button, {
+  maxAttempts: 3,
+  retryText: "Try saving again",
+  finalErrorText: "Save failed",
+  onAttempt: async () =&gt; {
+    await saveChanges();
+  }
+});</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="a11y-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Accessibility notes</p>
+          <h2 id="a11y-title">What changes for users</h2>
+        </div>
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Keyboard and focus</h3>
+            <ul class="demo-list">
+              <li>The addon keeps native button activation for <kbd>Enter</kbd> and <kbd>Space</kbd>.</li>
+              <li>Focus stays on the button while text and state change.</li>
+              <li>Final failure prevents more attempts until the caller resets the instance.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Status output</h3>
+            <ul class="demo-list">
+              <li>The button uses the core loading, success, error, and live-region behavior.</li>
+              <li>The visible status text listens to retry lifecycle events in this demo.</li>
+              <li>No network request, storage, analytics, or retry backoff is built into the addon.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="demo-footer demo-page__shell" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Async Button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">Vasileios Mitsaras</a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a class="demo-footer__link" href="https://linkedin.com/in/vasilis-mitsaras">LinkedIn profile</a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-async-button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://www.npmjs.com/package/a11y-async-button">npm package</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="../../">Documentation</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { createAsyncButtonRetry } from "../../assets/addons/retry.js";
+
+      const saveButton = document.querySelector('[data-retry-demo="save"]');
+      const uploadButton = document.querySelector('[data-retry-demo="upload"]');
+      const saveStatus = document.querySelector('[data-retry-status="save"]');
+      const uploadStatus = document.querySelector('[data-retry-status="upload"]');
+      const saveReset = document.querySelector('[data-reset-demo="save"]');
+      const uploadReset = document.querySelector('[data-reset-demo="upload"]');
+
+      function wait(ms) {
+        return new Promise((resolve) => {
+          window.setTimeout(resolve, ms);
+        });
+      }
+
+      function setStatus(status, message, state) {
+        if (!status) return;
+        status.textContent = message;
+        status.dataset.state = state;
+      }
+
+      function wireStatus(button, status) {
+        button.addEventListener("a11y-async-button-retry:attempt", (event) => {
+          setStatus(
+            status,
+            `Attempt ${event.detail.attempt} of ${event.detail.maxAttempts} is running.`,
+            "loading"
+          );
+        });
+        button.addEventListener("a11y-async-button-retry:retry", (event) => {
+          setStatus(
+            status,
+            `Attempt ${event.detail.attempt} failed. ${event.detail.remainingAttempts} retries remain.`,
+            "error"
+          );
+        });
+        button.addEventListener("a11y-async-button-retry:success", (event) => {
+          setStatus(status, `Succeeded on attempt ${event.detail.attempt}.`, "success");
+        });
+        button.addEventListener("a11y-async-button-retry:exhausted", (event) => {
+          setStatus(
+            status,
+            `Stopped after ${event.detail.attempt} attempts.`,
+            "error"
+          );
+        });
+        button.addEventListener("a11y-async-button-retry:reset", () => {
+          setStatus(status, "Ready again.", "idle");
+        });
+      }
+
+      if (saveButton instanceof HTMLButtonElement) {
+        let shouldFailSave = true;
+        const saveRetry = createAsyncButtonRetry(saveButton, {
+          onAttempt: async () => {
+            await wait(800);
+            if (shouldFailSave) {
+              shouldFailSave = false;
+              throw new Error("Simulated save timeout.");
+            }
+          }
+        });
+
+        wireStatus(saveButton, saveStatus);
+
+        saveReset?.addEventListener("click", () => {
+          shouldFailSave = true;
+          saveRetry.reset();
+          setStatus(saveStatus, "Ready to save.", "idle");
+        });
+      }
+
+      if (uploadButton instanceof HTMLButtonElement) {
+        const uploadRetry = createAsyncButtonRetry(uploadButton, {
+          onAttempt: async () => {
+            await wait(800);
+            throw new Error("Simulated upload failure.");
+          }
+        });
+
+        wireStatus(uploadButton, uploadStatus);
+
+        uploadReset?.addEventListener("click", () => {
+          uploadRetry.reset();
+          setStatus(uploadStatus, "Ready to upload.", "idle");
+        });
+      }
+    </script>
+  </body>
+</html>

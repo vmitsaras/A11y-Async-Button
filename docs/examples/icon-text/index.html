@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Icon and Text Button Example | A11y Async Button</title>
+    <meta
+      name="description"
+      content="Try an A11y Async Button example where the button icon and visible text change together across loading, success, error, and reset states."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/a11y-async-button/examples/icon-text/"
+    />
+    <link rel="stylesheet" href="../../assets/a11y-async-button.css" />
+    <link rel="stylesheet" href="../../assets/demo-page.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="demo-site-header"><div class="demo-site-header__inner demo-page__shell">
+      <a class="demo-site-header__brand" href="../../"><span>A11y</span> Async Button</a>
+      <nav class="demo-site-header__nav" aria-label="Primary navigation"><a href="../../#examples" aria-current="page">Examples</a><a href="../../#install">Install</a><a href="https://github.com/vmitsaras/a11y-async-button">GitHub</a></nav>
+    </div></div>
+
+    <header class="demo-hero">
+      <div class="demo-page__shell">
+        <p class="demo-hero__eyebrow">Core example</p>
+        <h1>Icon and text states</h1>
+        <p class="demo-hero__description">
+          A semantic async button changes both its leading icon and visible
+          label as a content sync action moves through loading, success, error,
+          and reset states.
+        </p>
+        <nav class="demo-hero__links" aria-label="Example links">
+          <a class="demo-button demo-button--primary" href="#demo">Try example</a>
+          <a class="demo-button" href="../../">Full documentation</a>
+          <a class="demo-button" href="../basic/">Basic example</a>
+          <a class="demo-button" href="../status/">Status addon example</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="demo-page__main demo-page__shell">
+      <section class="demo-section demo-facts" aria-labelledby="facts-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Quick facts</p>
+          <h2 id="facts-title">What this example covers</h2>
+        </div>
+        <dl class="demo-facts__list">
+          <div>
+            <dt>Import path</dt>
+            <dd><code>a11y-async-button</code></dd>
+          </div>
+          <div>
+            <dt>Pattern</dt>
+            <dd>Core async button with custom icon rendering</dd>
+          </div>
+          <div>
+            <dt>Render hook</dt>
+            <dd><code>renderText(button, text, state)</code></dd>
+          </div>
+          <div>
+            <dt>States shown</dt>
+            <dd>Idle, loading, success, error, and reset</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section
+        class="demo-section demo-section--band"
+        id="demo"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Live demo</p>
+          <h2 id="demo-title">Sync button icon and label</h2>
+          <p id="icon-text-summary">
+            A publishing team needs one action that clearly says what is
+            happening. The icon is decorative, but it changes alongside the text
+            so sighted users get the same state cue without relying on color.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="demo-example">
+            <h3>Production copy sync</h3>
+            <label class="demo-form__label" for="sync-result">
+              Simulated result
+            </label>
+            <select class="demo-form__input" id="sync-result" data-sync-result>
+              <option value="success">Success</option>
+              <option value="error">Error</option>
+            </select>
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-icon-text-button
+                data-loading-text="Syncing..."
+                data-success-text="Synced"
+                data-error-text="Needs review"
+                data-idle-text="Sync production copy"
+                data-reset-delay="0"
+                data-preserve-width
+                data-live-region="#icon-text-status"
+                aria-describedby="icon-text-summary icon-text-status"
+              >
+                <span
+                  class="a11y-async-button__icon"
+                  data-async-button-icon
+                  aria-hidden="true"
+                >
+                  <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
+                    <path
+                      d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.1"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12 18v-7"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="m8.7 14.3 3.3-3.3 3.3 3.3"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Sync production copy</span>
+              </button>
+              <button
+                class="demo-button"
+                type="button"
+                data-reset-icon-text-button
+              >
+                Reset
+              </button>
+              <span class="state-badge" data-state-badge data-state="idle">
+                idle
+              </span>
+            </div>
+            <p
+              id="icon-text-status"
+              class="demo-status"
+              data-visible-status
+              data-state="idle"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              Ready to sync production copy.
+            </p>
+          </div>
+
+          <div class="demo-example">
+            <h3>User goal</h3>
+            <p>
+              Confirm that the same button communicates progress and outcome
+              through text, icon shape, state color, busy semantics, repeat-click
+              prevention, and a polite status announcement.
+            </p>
+            <ul class="demo-list">
+              <li>The icon span is marked <code>aria-hidden="true"</code>.</li>
+              <li>The text span remains the accessible button name.</li>
+              <li>The status element is reused as the plugin live region.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section" aria-labelledby="try-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Try it</p>
+          <h2 id="try-title">Useful checks</h2>
+        </div>
+        <ul class="demo-list">
+          <li>Activate the button and watch the icon and text both change during loading.</li>
+          <li>Leave Simulated result on Success and confirm the success icon, label, badge, and status text update.</li>
+          <li>Switch Simulated result to Error, activate the button again, and confirm the retry-worthy error state is not color-only.</li>
+          <li>Use <kbd>Tab</kbd>, <kbd>Enter</kbd>, and <kbd>Space</kbd> to confirm native keyboard activation and focus retention.</li>
+          <li>Use Reset to return the icon, label, badge, and visible status to idle.</li>
+        </ul>
+      </section>
+
+      <section class="demo-section" aria-labelledby="code-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Example code</p>
+          <h2 id="code-title">Use the renderText option</h2>
+          <p>
+            The plugin still controls locking, busy state, state classes, live
+            announcements, and reset behavior. The demo only customizes how the
+            current state text is rendered inside the button.
+          </p>
+        </div>
+        <pre><code>import { createAsyncButton } from "a11y-async-button";
+import "a11y-async-button/styles.css";
+
+const button = document.querySelector("[data-a11y-async-button]");
+
+const icons = {
+  idle: cloudUploadIcon,
+  loading: syncingIcon,
+  success: cloudCheckIcon,
+  error: cloudAlertIcon
+};
+
+if (button instanceof HTMLButtonElement) {
+  createAsyncButton(button, {
+    renderText(button, text, state) {
+      button.querySelector("[data-a11y-async-button-text]").textContent = text;
+      button.querySelector("[data-async-button-icon]").innerHTML =
+        icons[state] ?? icons.idle;
+    },
+    onAction: async () =&gt; {
+      await syncProductionCopy();
+    }
+  });
+}</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="developer-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Developer notes</p>
+          <h2 id="developer-title">Copyable pieces</h2>
+        </div>
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Selectors and initialization</h3>
+            <ul class="demo-list">
+              <li>Root selector: <code>[data-a11y-async-button]</code> on a real <code>&lt;button&gt;</code>.</li>
+              <li>Text selector: <code>[data-a11y-async-button-text]</code> remains the accessible name source.</li>
+              <li>Icon selector: <code>[data-async-button-icon]</code> is demo markup controlled by <code>renderText</code>.</li>
+              <li>CSS import: <code>a11y-async-button/styles.css</code> for default layout, state colors, focus, and motion handling.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Options used</h3>
+            <ul class="demo-list">
+              <li><code>renderText</code> updates the label and decorative icon together.</li>
+              <li><code>onAction</code> lets the plugin manage loading, success, and error automatically.</li>
+              <li><code>data-preserve-width</code> prevents the button from jumping between shorter and longer labels.</li>
+              <li><code>data-live-region</code> points announcements at the visible status element.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section" aria-labelledby="a11y-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Accessibility notes</p>
+          <h2 id="a11y-title">What changes for users</h2>
+        </div>
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Keyboard, focus, and status</h3>
+            <ul class="demo-list">
+              <li>The control is a native button, so <kbd>Enter</kbd> and <kbd>Space</kbd> activate it without custom key handling.</li>
+              <li>Focus stays on the button while the async action runs.</li>
+              <li>The plugin sets busy and disabled semantics while repeat activation is blocked.</li>
+              <li>The visible status element receives the same state message through a polite live region.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Visual state and limitations</h3>
+            <ul class="demo-list">
+              <li>Each state changes icon shape and text, so state is not conveyed by color alone.</li>
+              <li>The loading icon may rotate, and the default CSS disables that motion for reduced-motion users.</li>
+              <li>The icon is decorative. Do not remove or hide the text span unless you provide an equivalent accessible name.</li>
+              <li>Keep SVG icons inline or local so the button remains framework-free and CDN-free.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="demo-footer demo-page__shell" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Async Button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">Vasileios Mitsaras</a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a class="demo-footer__link" href="https://linkedin.com/in/vasilis-mitsaras">LinkedIn profile</a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-async-button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://www.npmjs.com/package/a11y-async-button">npm package</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="../../">Documentation</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { createAsyncButton } from "../../assets/a11y-async-button.js";
+
+      const icons = {
+        idle: `
+          <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
+            <path
+              d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 18v-7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+            />
+            <path
+              d="m8.7 14.3 3.3-3.3 3.3 3.3"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        `,
+        loading: `
+          <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
+            <path
+              d="M21 12a9 9 0 0 0-15.3-6.36L3 8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M3 3v5h5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M3 12a9 9 0 0 0 15.3 6.36L21 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M16 16h5v5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        `,
+        success: `
+          <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
+            <path
+              d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="m9 15.5 2.2 2.2 4.8-5.2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        `,
+        error: `
+          <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
+            <path
+              d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12 11.5v3.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+            />
+            <path
+              d="M12 18h.01"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+          </svg>
+        `
+      };
+
+      const button = document.querySelector("[data-icon-text-button]");
+      const resetButton = document.querySelector("[data-reset-icon-text-button]");
+      const resultSelect = document.querySelector("[data-sync-result]");
+      const stateBadge = document.querySelector("[data-state-badge]");
+      const status = document.querySelector("[data-visible-status]");
+
+      function wait(ms) {
+        return new Promise((resolve) => {
+          window.setTimeout(resolve, ms);
+        });
+      }
+
+      function renderIconAndText(button, text, state) {
+        const icon = button.querySelector("[data-async-button-icon]");
+        const textNode = button.querySelector("[data-a11y-async-button-text]");
+
+        if (icon) {
+          icon.innerHTML = icons[state] ?? icons.idle;
+        }
+
+        if (textNode) {
+          textNode.textContent = text;
+        }
+      }
+
+      function updateStateMeta(state) {
+        if (stateBadge instanceof HTMLElement) {
+          stateBadge.textContent = state;
+          stateBadge.dataset.state = state;
+        }
+
+        if (status instanceof HTMLElement) {
+          status.dataset.state = state;
+
+          if (state === "idle") {
+            status.textContent = "Ready to sync production copy.";
+          }
+        }
+      }
+
+      if (button instanceof HTMLButtonElement) {
+        const asyncButton = createAsyncButton(button, {
+          renderText: renderIconAndText,
+          onStateChange: (_instance, state) => {
+            updateStateMeta(state);
+          },
+          onAction: async () => {
+            await wait(850);
+
+            if (
+              resultSelect instanceof HTMLSelectElement &&
+              resultSelect.value === "error"
+            ) {
+              throw undefined;
+            }
+          }
+        });
+
+        if (resetButton instanceof HTMLButtonElement) {
+          resetButton.addEventListener("click", () => {
+            asyncButton.reset();
+            button.focus();
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

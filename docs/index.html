@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessible Async Button Demo | A11y Async Button</title>
+    <meta
+      name="description"
+      content="Try a semantic async button plugin that manages loading, success, error, reset states, ARIA busy, and live announcements."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/a11y-async-button/"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Accessible Async Button Demo | A11y Async Button"
+    />
+    <meta
+      property="og:description"
+      content="Try a semantic async button plugin that manages loading, success, error, reset states, ARIA busy, and live announcements."
+    />
+    <meta
+      property="og:url"
+      content="https://vmitsaras.github.io/a11y-async-button/"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Accessible Async Button Demo | A11y Async Button"
+    />
+    <meta
+      name="twitter:description"
+      content="Try a semantic async button plugin that manages loading, success, error, reset states, ARIA busy, and live announcements."
+    />
+    <link rel="stylesheet" href="./assets/a11y-async-button.css" />
+    <link rel="stylesheet" href="./assets/demo-page.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://vmitsaras.github.io/a11y-async-button/#website",
+            "url": "https://vmitsaras.github.io/a11y-async-button/",
+            "name": "A11y Async Button"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://vmitsaras.github.io/a11y-async-button/#webpage",
+            "url": "https://vmitsaras.github.io/a11y-async-button/",
+            "name": "Accessible Async Button Demo | A11y Async Button",
+            "description": "Try a semantic async button plugin that manages loading, success, error, reset states, ARIA busy, and live announcements.",
+            "inLanguage": "en",
+            "isPartOf": {
+              "@id": "https://vmitsaras.github.io/a11y-async-button/#website"
+            },
+            "mainEntity": {
+              "@id": "https://vmitsaras.github.io/a11y-async-button/#software"
+            }
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://vmitsaras.github.io/a11y-async-button/#software",
+            "name": "A11y Async Button",
+            "alternateName": "a11y-async-button",
+            "description": "Accessible async state management for semantic button elements.",
+            "codeRepository": "https://github.com/vmitsaras/a11y-async-button",
+            "programmingLanguage": ["TypeScript", "JavaScript"],
+            "runtimePlatform": "Browser",
+            "version": "1.0.0",
+            "license": "MIT",
+            "keywords": [
+              "accessibility",
+              "a11y",
+              "button",
+              "async",
+              "aria",
+              "typescript"
+            ],
+            "author": {
+              "@id": "https://github.com/vmitsaras/#person"
+            },
+            "targetProduct": {
+              "@type": "SoftwareApplication",
+              "name": "Modern web browsers",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Any",
+              "runtimePlatform": "Browser"
+            },
+            "sameAs": [
+              "https://github.com/vmitsaras/a11y-async-button",
+              "https://www.npmjs.com/package/a11y-async-button"
+            ]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://github.com/vmitsaras/#person",
+            "name": "Vasileios Mitsaras",
+            "url": "https://github.com/vmitsaras/",
+            "sameAs": [
+              "https://github.com/vmitsaras/",
+              "https://linkedin.com/in/vasilis-mitsaras"
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <div class="demo-site-header">
+      <div class="demo-site-header__inner demo-page__shell">
+        <a class="demo-site-header__brand" href="./" aria-current="page"><span>A11y</span> Async Button</a>
+        <nav class="demo-site-header__nav" aria-label="Primary navigation">
+          <a href="#examples">Examples</a>
+          <a href="#install">Install</a>
+          <a href="https://github.com/vmitsaras/a11y-async-button">GitHub</a>
+        </nav>
+      </div>
+    </div>
+
+    <header class="demo-hero">
+      <div class="demo-page__shell">
+        <p class="demo-hero__eyebrow">Vanilla TypeScript accessibility plugin</p>
+        <h1>A11y Async Button</h1>
+        <p class="demo-hero__description">
+          Accessible async state management for semantic button elements. Use it
+          to show loading, success, error, reset, and locked states while keeping
+          native button behavior intact.
+        </p>
+        <p class="demo-hero__meta" aria-label="Package highlights">
+          <span>Zero runtime dependencies</span>
+          <span>Native button semantics</span>
+          <span>Framework agnostic</span>
+        </p>
+        <div class="demo-hero__links">
+          <a class="demo-button demo-button--primary" href="#demo">Live demo</a>
+          <a class="demo-button" href="#examples">Browse examples</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="demo-page__main demo-page__shell">
+      <section class="demo-section demo-facts" aria-labelledby="facts-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Quick facts</p>
+          <h2 id="facts-title">Package overview</h2>
+        </div>
+        <dl class="demo-facts__list">
+          <div>
+            <dt>Package</dt>
+            <dd><code>a11y-async-button</code></dd>
+          </div>
+          <div>
+            <dt>Type</dt>
+            <dd>Vanilla TypeScript, browser runtime</dd>
+          </div>
+          <div>
+            <dt>Dependencies</dt>
+            <dd>None at runtime</dd>
+          </div>
+          <div>
+            <dt>Best for</dt>
+            <dd>Save, send, submit, and retry actions with async feedback</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section
+        class="demo-section demo-section--band"
+        id="demo"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Live demo</p>
+          <h2 id="demo-title">Try loading, success, and error states</h2>
+          <p>
+            The buttons below are real <code>&lt;button&gt;</code> elements.
+            The first simulates a successful save. The second simulates an error
+            and then resets.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="demo-example">
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-loading-text="Saving..."
+                data-success-text="Saved"
+                data-error-text="Could not save"
+                data-reset-delay="1800"
+                data-preserve-width
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Save changes</span>
+              </button>
+              <span class="state-badge" data-state-badge data-state="idle">
+                idle
+              </span>
+            </div>
+            <p>
+              Success state updates the button text, removes busy semantics,
+              announces the result, and returns to idle after the reset delay.
+            </p>
+          </div>
+
+          <div class="demo-example">
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-loading-text="Sending..."
+                data-success-text="Sent"
+                data-error-text="Network error"
+                data-reset-delay="2200"
+                data-preserve-width
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Send test error</span>
+              </button>
+              <span class="state-badge" data-state-badge data-state="idle">
+                idle
+              </span>
+            </div>
+            <p>
+              Error state uses the same semantic button, announces the failure,
+              and keeps repeat activation blocked while work is running.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="demo-section" id="examples" aria-labelledby="examples-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Example library</p>
+          <h2 id="examples-title">Choose the pattern you need</h2>
+          <p>Start with the core patterns, then explore focused addons for common product flows and development workflows.</p>
+        </div>
+        <div class="demo-example-catalogue">
+          <a class="demo-example-card" href="./examples/basic/">
+            <span class="demo-example-card__type">Core · Start here</span><h3>Basic states</h3>
+            <p>Learn the smallest setup for loading, success, error, and reset.</p><span class="demo-example-card__cta">Open example →</span>
+          </a>
+          <a class="demo-example-card" href="./examples/icon-text/">
+            <span class="demo-example-card__type">Core · Visual feedback</span><h3>Icon and text</h3>
+            <p>Keep decorative icons synchronized with accessible state labels.</p><span class="demo-example-card__cta">Open example →</span>
+          </a>
+          <a class="demo-example-card" href="./examples/form/">
+            <span class="demo-example-card__type">User flow addon</span><h3>Form submit</h3>
+            <p>Coordinate validation, async submission, and visible status feedback.</p><span class="demo-example-card__cta">Open example →</span>
+          </a>
+          <a class="demo-example-card" href="./examples/retry/">
+            <span class="demo-example-card__type">User flow addon</span><h3>Retry</h3>
+            <p>Support recoverable failures with clear attempt limits and outcomes.</p><span class="demo-example-card__cta">Open example →</span>
+          </a>
+          <a class="demo-example-card" href="./examples/status/">
+            <span class="demo-example-card__type">Feedback addon</span><h3>Visible status</h3>
+            <p>Synchronize button state with persistent, readable status content.</p><span class="demo-example-card__cta">Open example →</span>
+          </a>
+          <a class="demo-example-card" href="./examples/presets/">
+            <span class="demo-example-card__type">Configuration addon</span><h3>Copy presets</h3>
+            <p>Apply consistent action language across save, send, and delete flows.</p><span class="demo-example-card__cta">Open example →</span>
+          </a>
+          <a class="demo-example-card" href="./examples/debug/">
+            <span class="demo-example-card__type">Developer tool</span><h3>Markup diagnostics</h3>
+            <p>Scan integrations and surface actionable setup findings.</p><span class="demo-example-card__cta">Open example →</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="demo-section" id="install" aria-labelledby="install-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Installation</p>
+          <h2 id="install-title">Install from npm</h2>
+          <p>
+            Import the JavaScript API and the optional baseline stylesheet from
+            the package.
+          </p>
+        </div>
+        <pre><code>npm install a11y-async-button
+pnpm add a11y-async-button
+yarn add a11y-async-button</code></pre>
+      </section>
+
+      <section class="demo-section" id="usage" aria-labelledby="usage-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Basic usage</p>
+          <h2 id="usage-title">Enhance an existing button</h2>
+        </div>
+
+        <h3>Markup</h3>
+        <pre><code>&lt;button
+  class="a11y-async-button"
+  type="button"
+  data-a11y-async-button
+  data-loading-text="Saving..."
+  data-success-text="Saved"
+  data-error-text="Could not save"
+  data-reset-delay="2000"
+&gt;
+  &lt;span class="a11y-async-button__text" data-a11y-async-button-text&gt;
+    Save changes
+  &lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+        <h3>JavaScript</h3>
+        <pre><code>import { createAsyncButton } from "a11y-async-button";
+import "a11y-async-button/styles.css";
+
+const button = document.querySelector("[data-a11y-async-button]");
+
+if (button instanceof HTMLButtonElement) {
+  const asyncButton = createAsyncButton(button);
+
+  button.addEventListener("click", async () => {
+    if (asyncButton.getState() !== "idle") return;
+
+    asyncButton.loading();
+
+    try {
+      await saveChanges();
+      asyncButton.success();
+    } catch {
+      asyncButton.error();
+    }
+  });
+}</code></pre>
+      </section>
+
+      <section class="demo-section" id="api" aria-labelledby="api-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">API</p>
+          <h2 id="api-title">Options, methods, and events</h2>
+          <p>
+            Options can be passed to <code>createAsyncButton()</code> or read
+            from matching data attributes.
+          </p>
+        </div>
+
+        <div class="demo-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">API</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>createAsyncButton(element, options)</code></td>
+                <td>Initializes one button and returns an instance.</td>
+              </tr>
+              <tr>
+                <td><code>initAsyncButtons(options, root)</code></td>
+                <td>
+                  Initializes all <code>[data-a11y-async-button]</code> buttons
+                  in the given root.
+                </td>
+              </tr>
+              <tr>
+                <td><code>loading()</code>, <code>success()</code>, <code>error()</code></td>
+                <td>Move the button through async action states.</td>
+              </tr>
+              <tr>
+                <td><code>reset()</code>, <code>lock()</code>, <code>unlock()</code></td>
+                <td>Restore idle state or control activation manually.</td>
+              </tr>
+              <tr>
+                <td><code>getState()</code>, <code>setState()</code>, <code>destroy()</code></td>
+                <td>Inspect state, set a state directly, or remove plugin behavior.</td>
+              </tr>
+              <tr>
+                <td><code>createAsyncButtonForm(form, options)</code></td>
+                <td>Optional form addon for validation handoff, async submit state, and visible status feedback.</td>
+              </tr>
+              <tr>
+                <td><code>initAsyncButtonForms(options, root)</code></td>
+                <td>Initializes all <code>[data-a11y-async-form]</code> forms in the given root.</td>
+              </tr>
+              <tr>
+                <td><code>createAsyncButtonRetry(button, options)</code></td>
+                <td>Optional retry addon for recoverable async action failures.</td>
+              </tr>
+              <tr>
+                <td><code>initAsyncButtonRetries(options, root)</code></td>
+                <td>Initializes all <code>[data-a11y-async-retry]</code> buttons in the given root.</td>
+              </tr>
+              <tr>
+                <td><code>createAsyncButtonStatus(button, options)</code></td>
+                <td>Optional status addon for visible feedback synced from async button state.</td>
+              </tr>
+              <tr>
+                <td><code>initAsyncButtonStatuses(options, root)</code></td>
+                <td>Initializes all <code>[data-a11y-async-status-button]</code> buttons in the given root.</td>
+              </tr>
+              <tr>
+                <td><code>createAsyncButtonPreset(button, options)</code></td>
+                <td>Optional presets addon for named or custom async button copy defaults.</td>
+              </tr>
+              <tr>
+                <td><code>initAsyncButtonPresets(options, root)</code></td>
+                <td>Initializes all <code>[data-a11y-async-preset]</code> buttons in the given root.</td>
+              </tr>
+              <tr>
+                <td><code>getAsyncButtonPresetOptions(preset, options)</code></td>
+                <td>Returns core async button options for a named or custom preset.</td>
+              </tr>
+              <tr>
+                <td><code>createAsyncButtonDebugReport(root, options)</code></td>
+                <td>Optional debug addon that scans markup and returns structured findings.</td>
+              </tr>
+              <tr>
+                <td><code>logAsyncButtonDebugReport(report, options)</code></td>
+                <td>Logs debug findings with severity-specific console methods.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="demo-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Data attribute</th>
+                <th scope="col">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>data-loading-text</code>, <code>data-success-text</code>, <code>data-error-text</code></td>
+                <td>Text used while work is loading, complete, or failed.</td>
+              </tr>
+              <tr>
+                <td><code>data-idle-text</code>, <code>data-reset-delay</code></td>
+                <td>Idle text and milliseconds before success or error resets.</td>
+              </tr>
+              <tr>
+                <td><code>data-prevent-double-click</code></td>
+                <td>Set to <code>false</code> to allow repeat activation while loading.</td>
+              </tr>
+              <tr>
+                <td><code>data-preserve-width</code>, <code>data-use-native-disabled</code></td>
+                <td>Preserve initial width or use native <code>disabled</code> while locked.</td>
+              </tr>
+              <tr>
+                <td><code>data-announce</code>, <code>data-live-region</code></td>
+                <td>Control managed or external live-region announcements.</td>
+              </tr>
+              <tr>
+                <td><code>data-a11y-async-form</code>, <code>data-a11y-async-form-status</code></td>
+                <td>Opt in to the separate form addon and connect visible submit status output.</td>
+              </tr>
+              <tr>
+                <td><code>data-a11y-async-retry</code>, <code>data-max-attempts</code></td>
+                <td>Opt in to the separate retry addon and configure recoverable attempt limits.</td>
+              </tr>
+              <tr>
+                <td><code>data-a11y-async-status-button</code>, <code>data-status-target</code></td>
+                <td>Opt in to the separate status addon and connect an existing visible status element.</td>
+              </tr>
+              <tr>
+                <td><code>data-a11y-async-preset</code></td>
+                <td>Opt in to the separate presets addon and choose a named action preset.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Lifecycle events bubble from the button, including
+          <code>a11y-async-button:init</code>,
+          <code>a11y-async-button:loading</code>,
+          <code>a11y-async-button:success</code>,
+          <code>a11y-async-button:error</code>,
+          <code>a11y-async-button:reset</code>,
+          <code>a11y-async-button:state-change</code>,
+          <code>a11y-async-button:lock</code>,
+          <code>a11y-async-button:unlock</code>, and
+          <code>a11y-async-button:destroy</code>.
+        </p>
+      </section>
+
+      <section
+        class="demo-section"
+        id="accessibility"
+        aria-labelledby="accessibility-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Accessibility behavior</p>
+          <h2 id="accessibility-title">Semantics and announcements</h2>
+        </div>
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Keyboard interaction</h3>
+            <ul class="demo-list">
+              <li>Uses native button activation for <kbd>Enter</kbd> and <kbd>Space</kbd>.</li>
+              <li>Blocks repeated activation while loading or locked.</li>
+              <li>Does not trap focus or move focus after state changes.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Screen reader behavior</h3>
+            <ul class="demo-list">
+              <li>Sets <code>aria-busy</code> during async work.</li>
+              <li>Uses <code>aria-disabled</code> by default so focus does not disappear.</li>
+              <li>Announces loading, success, and error text through a managed or external live region.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section" id="styling" aria-labelledby="styling-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Styling hooks</p>
+          <h2 id="styling-title">CSS classes and custom properties</h2>
+          <p>
+            The default stylesheet uses the <code>a11y-async-button</code> BEM
+            block with state classes and public custom properties.
+          </p>
+        </div>
+        <ul class="demo-list">
+          <li><code>.a11y-async-button</code> - root button class.</li>
+          <li><code>.a11y-async-button__text</code> - optional text target.</li>
+          <li><code>.is-loading</code>, <code>.is-success</code>, <code>.is-error</code>, and <code>.is-disabled</code> - state classes.</li>
+          <li><code>--a11y-async-button-idle-background</code>, <code>--a11y-async-button-success-background</code>, and <code>--a11y-async-button-focus-ring</code> - public styling hooks.</li>
+        </ul>
+      </section>
+
+      <section
+        class="demo-section demo-section--band"
+        id="limitations"
+        aria-labelledby="limitations-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Limitations</p>
+          <h2 id="limitations-title">What the plugin expects</h2>
+        </div>
+        <ul class="demo-list">
+          <li>It requires a real <code>&lt;button&gt;</code> element.</li>
+          <li>It does not create form validation, network requests, or application state.</li>
+          <li>Form submit helpers live in the separate <code>./addons/form</code> entry.</li>
+          <li>Retry helpers live in the separate <code>./addons/retry</code> entry.</li>
+          <li>Visible status helpers live in the separate <code>./addons/status</code> entry.</li>
+          <li>Preset helpers live in the separate <code>./addons/presets</code> entry.</li>
+          <li>Markup diagnostics live in the separate <code>./addons/debug</code> entry.</li>
+          <li>Screen reader output depends on clear loading, success, and error text.</li>
+          <li>Default CSS is optional, but visible focus and state styling still need to be provided by the page.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="demo-footer demo-page__shell" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Async Button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">Vasileios Mitsaras</a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a class="demo-footer__link" href="https://linkedin.com/in/vasilis-mitsaras">LinkedIn profile</a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-async-button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://www.npmjs.com/package/a11y-async-button">npm package</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button#readme">Documentation</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { initAsyncButtons } from "./assets/a11y-async-button.js";
+
+      const instances = initAsyncButtons();
+      const [successButton, errorButton] = instances;
+
+      function updateBadge(badge, state) {
+        if (!badge) return;
+        badge.textContent = state;
+        badge.dataset.state = state;
+      }
+
+      for (const instance of instances) {
+        const badge = instance.element
+          .closest(".demo-example")
+          ?.querySelector("[data-state-badge]");
+
+        instance.element.addEventListener(
+          "a11y-async-button:state-change",
+          (event) => {
+            updateBadge(badge, event.detail.state);
+          }
+        );
+      }
+
+      successButton?.element.addEventListener("click", () => {
+        if (successButton.getState() !== "idle") return;
+
+        successButton.loading();
+        window.setTimeout(() => successButton.success(), 900);
+      });
+
+      errorButton?.element.addEventListener("click", () => {
+        if (errorButton.getState() !== "idle") return;
+
+        errorButton.loading();
+        window.setTimeout(() => errorButton.error(), 900);
+      });
+    </script>
+  </body>
+</html>

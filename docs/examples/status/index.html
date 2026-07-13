@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Status Addon Example | A11y Async Button</title>
+    <meta
+      name="description"
+      content="Try the optional A11y Async Button status addon with visible live status text synced from async button state changes."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/a11y-async-button/examples/status/"
+    />
+    <link rel="stylesheet" href="../../assets/a11y-async-button.css" />
+    <link rel="stylesheet" href="../../assets/demo-page.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="demo-site-header"><div class="demo-site-header__inner demo-page__shell">
+      <a class="demo-site-header__brand" href="../../"><span>A11y</span> Async Button</a>
+      <nav class="demo-site-header__nav" aria-label="Primary navigation"><a href="../../#examples" aria-current="page">Examples</a><a href="../../#install">Install</a><a href="https://github.com/vmitsaras/a11y-async-button">GitHub</a></nav>
+    </div></div>
+
+    <header class="demo-hero">
+      <div class="demo-page__shell">
+        <p class="demo-hero__eyebrow">Addon example</p>
+        <h1>Visible async status</h1>
+        <p class="demo-hero__description">
+          Pair a semantic async button with nearby persistent status text for
+          save, send, and dashboard actions where users need feedback that stays
+          visible after the button label changes.
+        </p>
+        <nav class="demo-hero__links" aria-label="Example links">
+          <a class="demo-button demo-button--primary" href="#demo">Try example</a>
+          <a class="demo-button" href="../../">Full documentation</a>
+          <a class="demo-button" href="../form/">Form addon example</a>
+          <a class="demo-button" href="../retry/">Retry addon example</a>
+          <a class="demo-button" href="../debug/">Debug addon example</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="demo-page__main demo-page__shell">
+      <section class="demo-section demo-facts" aria-labelledby="facts-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Quick facts</p>
+          <h2 id="facts-title">What this addon covers</h2>
+        </div>
+        <dl class="demo-facts__list">
+          <div>
+            <dt>Import path</dt>
+            <dd><code>a11y-async-button/addons/status</code></dd>
+          </div>
+          <div>
+            <dt>Pattern</dt>
+            <dd>Visible status connector for one async button</dd>
+          </div>
+          <div>
+            <dt>Status target</dt>
+            <dd>Existing element chosen by selector, description, or parent markup</dd>
+          </div>
+          <div>
+            <dt>Runtime deps</dt>
+            <dd>None beyond the core package</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section
+        class="demo-section demo-section--band"
+        id="demo"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Live demo</p>
+          <h2 id="demo-title">Sync button state to visible text</h2>
+          <p>
+            The addon does not create UI. Each button points at an existing
+            status element and mirrors loading, success, error, and reset state
+            changes into that element.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <div class="demo-example">
+            <h3>Save preferences</h3>
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-a11y-async-status-button
+                data-status-target="#settings-status"
+                data-status-loading-text="Saving preferences..."
+                data-status-success-text="Preferences saved."
+                data-status-error-text="Preferences could not be saved."
+                data-loading-text="Saving..."
+                data-success-text="Saved"
+                data-error-text="Could not save"
+                data-reset-delay="0"
+                data-preserve-width
+                data-status-demo="settings"
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Save preferences</span>
+              </button>
+              <button
+                class="demo-button"
+                type="button"
+                data-reset-status-demo="settings"
+              >
+                Reset
+              </button>
+            </div>
+            <p id="settings-status" class="demo-status" data-a11y-async-status>
+              Ready to save preferences.
+            </p>
+          </div>
+
+          <div class="demo-example">
+            <h3>Send invite</h3>
+            <label class="demo-form__label" for="invite-result">
+              Simulated result
+            </label>
+            <select class="demo-form__input" id="invite-result" data-invite-result>
+              <option value="success">Success</option>
+              <option value="error">Error</option>
+            </select>
+            <div class="demo-example__body">
+              <button
+                class="a11y-async-button"
+                type="button"
+                data-a11y-async-button
+                data-a11y-async-status-button
+                data-status-target="#invite-status"
+                data-status-loading-text="Sending invite..."
+                data-status-success-text="Invite sent."
+                data-status-error-text="Invite could not be sent."
+                data-loading-text="Sending..."
+                data-success-text="Sent"
+                data-error-text="Could not send"
+                data-reset-delay="0"
+                data-preserve-width
+                data-status-demo="invite"
+              >
+                <span
+                  class="a11y-async-button__text"
+                  data-a11y-async-button-text
+                >Send invite</span>
+              </button>
+              <button
+                class="demo-button"
+                type="button"
+                data-reset-status-demo="invite"
+              >
+                Reset
+              </button>
+            </div>
+            <p id="invite-status" class="demo-status" data-a11y-async-status>
+              Ready to send an invite.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section" aria-labelledby="try-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Try it</p>
+          <h2 id="try-title">Useful checks</h2>
+        </div>
+        <ul class="demo-list">
+          <li>Activate Save preferences and watch the nearby status text move through loading and success.</li>
+          <li>Change Simulated result to Error, then activate Send invite.</li>
+          <li>Use <kbd>Tab</kbd>, <kbd>Enter</kbd>, and <kbd>Space</kbd> to confirm native button behavior.</li>
+          <li>Use Reset to return the button and status text to their original idle state.</li>
+        </ul>
+      </section>
+
+      <section class="demo-section" aria-labelledby="code-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Example code</p>
+          <h2 id="code-title">Import only the status addon</h2>
+        </div>
+        <pre><code>import { createAsyncButtonStatus } from "a11y-async-button/addons/status";
+import "a11y-async-button/styles.css";
+
+createAsyncButtonStatus(button, {
+  target: "#settings-status",
+  loadingStatusText: "Saving preferences...",
+  successStatusText: "Preferences saved.",
+  errorStatusText: "Preferences could not be saved.",
+  onAction: async () =&gt; {
+    await savePreferences();
+  }
+});</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="a11y-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Accessibility notes</p>
+          <h2 id="a11y-title">What changes for users</h2>
+        </div>
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Keyboard and focus</h3>
+            <ul class="demo-list">
+              <li>The addon keeps native button activation for <kbd>Enter</kbd> and <kbd>Space</kbd>.</li>
+              <li>Focus stays on the button while the visible status updates.</li>
+              <li>Repeated activation is still controlled by the core async button behavior.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Status output</h3>
+            <ul class="demo-list">
+              <li>The status element receives <code>role="status"</code>, <code>aria-live="polite"</code>, and <code>aria-atomic="true"</code> when missing.</li>
+              <li>Custom status text can come from options or data attributes.</li>
+              <li>The addon restores the status element's original text and attributes on destroy.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="demo-footer demo-page__shell" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Async Button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">Vasileios Mitsaras</a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a class="demo-footer__link" href="https://linkedin.com/in/vasilis-mitsaras">LinkedIn profile</a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-async-button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://www.npmjs.com/package/a11y-async-button">npm package</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="../../">Documentation</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { createAsyncButtonStatus } from "../../assets/addons/status.js";
+
+      const settingsButton = document.querySelector('[data-status-demo="settings"]');
+      const inviteButton = document.querySelector('[data-status-demo="invite"]');
+      const inviteResult = document.querySelector("[data-invite-result]");
+      const instances = new Map();
+
+      function wait(ms) {
+        return new Promise((resolve) => {
+          window.setTimeout(resolve, ms);
+        });
+      }
+
+      if (settingsButton instanceof HTMLButtonElement) {
+        instances.set(
+          "settings",
+          createAsyncButtonStatus(settingsButton, {
+            onAction: async () => {
+              await wait(650);
+            }
+          })
+        );
+      }
+
+      if (inviteButton instanceof HTMLButtonElement) {
+        instances.set(
+          "invite",
+          createAsyncButtonStatus(inviteButton, {
+            onAction: async () => {
+              await wait(650);
+
+              if (
+                inviteResult instanceof HTMLSelectElement &&
+                inviteResult.value === "error"
+              ) {
+                throw undefined;
+              }
+            }
+          })
+        );
+      }
+
+      document.querySelectorAll("[data-reset-status-demo]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const key = button.getAttribute("data-reset-status-demo");
+          const instance = key ? instances.get(key) : null;
+          instance?.asyncButton.reset();
+        });
+      });
+    </script>
+  </body>
+</html>

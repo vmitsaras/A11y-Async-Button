@@ -1,0 +1,144 @@
+.a11y-async-button {
+  --a11y-async-button-gap: 0.5rem;
+  --a11y-async-button-radius: 0.5rem;
+  --a11y-async-button-transition-duration: 160ms;
+  --a11y-async-button-padding-x: 1rem;
+  --a11y-async-button-padding-y: 0.625rem;
+  --a11y-async-button-font-size: 1rem;
+  --a11y-async-button-font-weight: 600;
+  --a11y-async-button-idle-background: #1d4ed8;
+  --a11y-async-button-idle-border: #1e40af;
+  --a11y-async-button-idle-color: #ffffff;
+  --a11y-async-button-loading-background: #0369a1;
+  --a11y-async-button-loading-color: #ffffff;
+  --a11y-async-button-success-background: #15803d;
+  --a11y-async-button-success-color: #ffffff;
+  --a11y-async-button-error-background: #b91c1c;
+  --a11y-async-button-error-color: #ffffff;
+  --a11y-async-button-disabled-background: #6b7280;
+  --a11y-async-button-disabled-color: #ffffff;
+  --a11y-async-button-focus-ring: #111827;
+
+  --_gap: var(--a11y-async-button-gap);
+  --_radius: var(--a11y-async-button-radius);
+  --_transition-duration: var(--a11y-async-button-transition-duration);
+  --_padding-x: var(--a11y-async-button-padding-x);
+  --_padding-y: var(--a11y-async-button-padding-y);
+  --_font-size: var(--a11y-async-button-font-size);
+  --_font-weight: var(--a11y-async-button-font-weight);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--_gap);
+  min-height: 2.75rem;
+  padding: var(--_padding-y) var(--_padding-x);
+  border: 2px solid var(--a11y-async-button-idle-border);
+  border-radius: var(--_radius);
+  background: var(--a11y-async-button-idle-background);
+  color: var(--a11y-async-button-idle-color);
+  font: inherit;
+  font-size: var(--_font-size);
+  font-weight: var(--_font-weight);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--_transition-duration),
+    border-color var(--_transition-duration),
+    color var(--_transition-duration),
+    opacity var(--_transition-duration),
+    filter var(--_transition-duration);
+}
+
+.a11y-async-button:hover:not([aria-disabled="true"]):not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.a11y-async-button:focus-visible {
+  outline: 3px solid var(--a11y-async-button-focus-ring);
+  outline-offset: 3px;
+}
+
+.a11y-async-button.is-loading {
+  border-color: var(--a11y-async-button-loading-background);
+  background: var(--a11y-async-button-loading-background);
+  color: var(--a11y-async-button-loading-color);
+  cursor: wait;
+}
+
+.a11y-async-button.is-success {
+  border-color: var(--a11y-async-button-success-background);
+  background: var(--a11y-async-button-success-background);
+  color: var(--a11y-async-button-success-color);
+}
+
+.a11y-async-button.is-error {
+  border-color: var(--a11y-async-button-error-background);
+  background: var(--a11y-async-button-error-background);
+  color: var(--a11y-async-button-error-color);
+}
+
+.a11y-async-button.is-disabled,
+.a11y-async-button[aria-disabled="true"]:not(.is-loading):not(.is-success):not(.is-error),
+.a11y-async-button:disabled:not(.is-loading):not(.is-success):not(.is-error) {
+  border-color: var(--a11y-async-button-disabled-background);
+  background: var(--a11y-async-button-disabled-background);
+  color: var(--a11y-async-button-disabled-color);
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.a11y-async-button--preserve-width {
+  text-align: center;
+}
+
+.a11y-async-button__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+}
+
+.a11y-async-button.is-loading .a11y-async-button__icon {
+  animation: a11y-async-button-spin 0.75s linear infinite;
+}
+
+.a11y-async-button__text {
+  min-width: 0;
+}
+
+.a11y-async-button__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes a11y-async-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .a11y-async-button,
+  .a11y-async-button *,
+  .a11y-async-button *::before,
+  .a11y-async-button *::after {
+    animation-duration: 0.001ms;
+    animation-iteration-count: 1;
+    scroll-behavior: auto;
+    transition-duration: 0.001ms;
+  }
+}

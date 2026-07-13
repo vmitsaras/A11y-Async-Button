@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessible Form Submit Example | A11y Async Button</title>
+    <meta
+      name="description"
+      content="Use native form validation with the optional A11y Async Button form addon to simulate server responses and show accessible async submit states."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/a11y-async-button/examples/form/"
+    />
+    <link rel="stylesheet" href="../../assets/a11y-async-button.css" />
+    <link rel="stylesheet" href="../../assets/demo-page.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="demo-site-header"><div class="demo-site-header__inner demo-page__shell">
+      <a class="demo-site-header__brand" href="../../"><span>A11y</span> Async Button</a>
+      <nav class="demo-site-header__nav" aria-label="Primary navigation"><a href="../../#examples" aria-current="page">Examples</a><a href="../../#install">Install</a><a href="https://github.com/vmitsaras/a11y-async-button">GitHub</a></nav>
+    </div></div>
+
+    <header class="demo-hero">
+      <div class="demo-page__shell">
+        <p class="demo-hero__eyebrow">Addon integration example</p>
+        <h1>Validated async support request</h1>
+        <p class="demo-hero__description">
+          A support intake form uses native browser validation, then hands a
+          valid submit to the A11y Async Button form addon for loading, success,
+          error, and visible status feedback.
+        </p>
+        <nav class="demo-hero__links" aria-label="Example links">
+          <a class="demo-button demo-button--primary" href="#demo">Try example</a>
+          <a class="demo-button" href="../../">Full documentation</a>
+          <a class="demo-button" href="../basic/">Basic example</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="demo-page__main demo-page__shell">
+      <section class="demo-section demo-facts" aria-labelledby="facts-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Quick facts</p>
+          <h2 id="facts-title">What this integration covers</h2>
+        </div>
+        <dl class="demo-facts__list">
+          <div>
+            <dt>Async import</dt>
+            <dd><code>a11y-async-button/addons/form</code></dd>
+          </div>
+          <div>
+            <dt>Validation</dt>
+            <dd>Native constraints and custom validity messages</dd>
+          </div>
+          <div>
+            <dt>Pattern</dt>
+            <dd>Validate first, then simulate a submit request</dd>
+          </div>
+          <div>
+            <dt>Network</dt>
+            <dd>Local timeout and server-error simulation only</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="demo-section" aria-labelledby="scenario-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Scenario</p>
+          <h2 id="scenario-title">A support team is reviewing workspace requests</h2>
+          <p>
+            The user goal is to submit a complete request once, get clear field
+            feedback when validation fails, and understand whether the simulated
+            backend saved, rejected, or timed out.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="demo-section demo-section--band"
+        id="demo"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Live demo</p>
+          <h2 id="demo-title">Submit a workspace support request</h2>
+          <p>
+            Try the reserved workspace value <code>admin</code>, leave required
+            fields empty, or choose a simulated response before submitting.
+          </p>
+        </div>
+
+        <form
+          class="demo-form"
+          data-a11y-async-form
+          data-a11y-async-form-validate="true"
+          data-a11y-async-form-loading-text="Sending request..."
+          data-a11y-async-form-success-text="Support request saved. Confirmation REQ-2048 is queued."
+          data-a11y-async-form-error-text="The simulated request failed. Review the details and try again."
+        >
+          <div class="demo-form__field">
+            <label class="demo-form__label" for="support-email">Team email</label>
+            <input
+              class="demo-form__input"
+              id="support-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              value="ada@example.com"
+              aria-describedby="support-email-hint"
+              data-message-required="Enter the team email address."
+              data-message-email="Enter an email address such as name@example.com."
+            />
+            <p class="demo-form__hint" id="support-email-hint">
+              Server-error mode rejects this field after client-side validation succeeds.
+            </p>
+          </div>
+
+          <div class="demo-form__field">
+            <label class="demo-form__label" for="support-workspace">
+              Workspace URL slug
+            </label>
+            <input
+              class="demo-form__input"
+              id="support-workspace"
+              name="workspace"
+              autocomplete="organization"
+              required
+              minlength="3"
+              maxlength="24"
+              pattern="[a-z0-9-]+"
+              value="ada-lab"
+              aria-describedby="support-workspace-hint"
+              data-message-required="Enter the requested workspace slug."
+              data-message-min-length="Use at least 3 characters."
+              data-message-pattern="Use lowercase letters, numbers, and hyphens only."
+            />
+            <p class="demo-form__hint" id="support-workspace-hint">
+              Values <code>admin</code>, <code>support</code>, and
+              <code>root</code> fail the async availability rule.
+            </p>
+          </div>
+
+          <div class="demo-form__field">
+            <label class="demo-form__label" for="support-subject">Request subject</label>
+            <input
+              class="demo-form__input"
+              id="support-subject"
+              name="subject"
+              required
+              minlength="8"
+              value="Review billing access"
+              data-message-required="Add a short subject."
+              data-message-min-length="Use at least 8 characters for the subject."
+            />
+          </div>
+
+          <div class="demo-form__field">
+            <label class="demo-form__label" for="support-message">Request details</label>
+            <textarea
+              class="demo-form__textarea"
+              id="support-message"
+              name="message"
+              rows="5"
+              required
+              minlength="20"
+              maxlength="320"
+              data-message-required="Describe what the support team should review."
+              data-message-min-length="Add at least 20 characters so the team has enough context."
+              aria-describedby="support-message-hint"
+            >Please review billing access for the workspace before the team migration.</textarea>
+            <p class="demo-form__hint" id="support-message-hint">
+              The browser identifies this field when the content is too short.
+            </p>
+          </div>
+
+          <fieldset class="demo-form__fieldset">
+            <legend class="demo-form__legend">Request priority</legend>
+            <label class="demo-form__choice">
+              <input name="priority" type="radio" value="normal" required checked />
+              Normal review
+            </label>
+            <label class="demo-form__choice">
+              <input name="priority" type="radio" value="urgent" required />
+              Urgent review
+            </label>
+          </fieldset>
+
+          <div class="demo-form__field">
+            <label class="demo-form__label" for="support-outcome">
+              Simulated response
+            </label>
+            <select
+              class="demo-form__input"
+              id="support-outcome"
+              name="outcome"
+              aria-describedby="support-outcome-hint"
+            >
+              <option value="success">Success response</option>
+              <option value="server-error">Server field errors</option>
+              <option value="network-error">Network timeout</option>
+            </select>
+            <p class="demo-form__hint" id="support-outcome-hint">
+              This select controls only the local demo response. No request
+              leaves the page.
+            </p>
+          </div>
+
+          <label class="demo-form__choice">
+            <input
+              name="confirm"
+              type="checkbox"
+              required
+              checked
+              data-message-checked="Confirm the request is ready before submitting."
+            />
+            I confirm this request is ready for support review.
+          </label>
+
+          <div class="demo-form__actions">
+            <button
+              class="a11y-async-button"
+              type="submit"
+              data-a11y-async-button
+              data-a11y-async-form-button
+              data-loading-text="Sending..."
+              data-success-text="Saved"
+              data-error-text="Review"
+              data-reset-delay="2400"
+              data-preserve-width
+            >
+              <span
+                class="a11y-async-button__text"
+                data-a11y-async-button-text
+              >Submit request</span>
+            </button>
+          </div>
+
+          <p class="demo-status" data-a11y-async-form-status>
+            Ready to validate and send.
+          </p>
+        </form>
+      </section>
+
+      <section class="demo-section" aria-labelledby="try-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Try it</p>
+          <h2 id="try-title">Useful checks</h2>
+        </div>
+        <ul class="demo-list">
+          <li>Change the workspace slug to <code>admin</code>, then submit.</li>
+          <li>Choose server field errors and submit a valid form.</li>
+          <li>Choose network timeout and retry after the button resets.</li>
+          <li>Use <kbd>Tab</kbd>, <kbd>Enter</kbd>, and <kbd>Space</kbd> to confirm native form and button behavior.</li>
+        </ul>
+      </section>
+
+      <section class="demo-section" aria-labelledby="code-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Example code</p>
+          <h2 id="code-title">Use native validation with the form addon</h2>
+        </div>
+        <pre><code>import { createAsyncButtonForm } from "a11y-async-button/addons/form";
+createAsyncButtonForm(form, {
+  validate: true,
+  onSubmit: async ({ formData, setStatus }) =&gt; {
+    setStatus("Sending request...");
+    await sendSupportRequest(formData);
+  }
+});</code></pre>
+      </section>
+
+      <section class="demo-section" aria-labelledby="response-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Simulated network</p>
+          <h2 id="response-title">Response states shown</h2>
+        </div>
+        <ul class="demo-response-list" aria-label="Simulated response states">
+          <li>
+            <strong>Success</strong>
+            <span>resolves after a short delay and lets the form addon show success.</span>
+          </li>
+          <li>
+            <strong>Server field errors</strong>
+            <span>sets native custom validity messages, focuses the first invalid field, and returns the async button to retry.</span>
+          </li>
+          <li>
+            <strong>Network timeout</strong>
+            <span>throws a local error so the async button and status region expose failure without sending data.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="demo-section" aria-labelledby="a11y-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Accessibility notes</p>
+          <h2 id="a11y-title">What changes for users</h2>
+        </div>
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Validation and focus</h3>
+            <ul class="demo-list">
+              <li>Native labels, inputs, textarea, radio buttons, checkbox, and submit button behavior remain intact.</li>
+              <li>Browser validation identifies and focuses the first invalid field after blocked submits or server errors.</li>
+              <li>The validation gate runs before the async submit so users do not see loading for known invalid data.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Status and limitations</h3>
+            <ul class="demo-list">
+              <li>The async form addon keeps repeat submits from starting during the simulated request.</li>
+              <li>The visible status paragraph is a polite live region with text for loading, success, invalid, and error states.</li>
+              <li>The example is self-contained and does not require a sibling repository or external validation package.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="demo-footer demo-page__shell" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Async Button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">Vasileios Mitsaras</a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a class="demo-footer__link" href="https://linkedin.com/in/vasilis-mitsaras">LinkedIn profile</a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-async-button</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="https://github.com/vmitsaras/a11y-async-button">GitHub repository</a>
+            </li>
+            <li class="demo-footer__item">
+              <a class="demo-footer__link" href="../../">Documentation</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { createAsyncButtonForm } from "../../assets/addons/form.js";
+
+      const form = document.querySelector("[data-a11y-async-form]");
+      const reservedWorkspaces = new Set(["admin", "support", "root"]);
+
+      function wait(ms) {
+        return new Promise((resolve) => {
+          window.setTimeout(resolve, ms);
+        });
+      }
+
+      async function simulateNetworkResponse(formData) {
+        await wait(1050);
+
+        const outcome = String(formData.get("outcome") || "success");
+
+        if (outcome === "server-error") {
+          return {
+            ok: false,
+            type: "server-error",
+            errors: {
+              fields: {
+                email: "The server does not recognize this team email.",
+                workspace: "This workspace URL was claimed while you were typing."
+              },
+              form:
+                "The simulated API returned validation errors. Nothing was saved."
+            }
+          };
+        }
+
+        if (outcome === "network-error") {
+          return {
+            ok: false,
+            type: "network-error"
+          };
+        }
+
+        return {
+          ok: true,
+          type: "success"
+        };
+      }
+
+      if (form instanceof HTMLFormElement) {
+        const email = form.elements.namedItem("email");
+        const workspace = form.elements.namedItem("workspace");
+        let lastErrorStatus = "";
+
+        function validateWorkspace() {
+          if (!(workspace instanceof HTMLInputElement)) return;
+          const value = workspace.value.trim().toLowerCase();
+          workspace.setCustomValidity(
+            reservedWorkspaces.has(value)
+              ? "That workspace URL is reserved. Try a team-specific slug."
+              : ""
+          );
+        }
+
+        validateWorkspace();
+        workspace?.addEventListener("input", validateWorkspace);
+        email?.addEventListener("input", () => {
+          if (email instanceof HTMLInputElement) email.setCustomValidity("");
+        });
+
+        const asyncForm = createAsyncButtonForm(form, {
+          validate: true,
+          resetDelay: 2400,
+          onSubmit: async ({ formData, setStatus: setAsyncStatus }) => {
+              lastErrorStatus = "";
+
+              const subject = String(formData.get("subject") || "request");
+              setAsyncStatus(`Sending "${subject}" to the support queue...`);
+
+              const response = await simulateNetworkResponse(formData);
+
+              if (response.ok) return;
+
+              if (response.type === "server-error") {
+                if (email instanceof HTMLInputElement) {
+                  email.setCustomValidity(response.errors.fields.email);
+                }
+                if (workspace instanceof HTMLInputElement) {
+                  workspace.setCustomValidity(response.errors.fields.workspace);
+                }
+                form.reportValidity();
+                lastErrorStatus =
+                  "Server rejected two fields. Update them, then submit again.";
+                throw new Error("Simulated server validation response.");
+              }
+
+              lastErrorStatus =
+                "Network timeout in the simulated response. No data left this page.";
+              throw new Error("Simulated network timeout.");
+            }
+        });
+
+        form.addEventListener("a11y-async-button-form:error", () => {
+          if (lastErrorStatus) asyncForm.setStatus(lastErrorStatus, "error");
+        });
+      }
+    </script>
+  </body>
+</html>

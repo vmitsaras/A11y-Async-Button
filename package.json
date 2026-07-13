@@ -1,0 +1,87 @@
+{
+  "name": "a11y-async-button",
+  "version": "1.0.0",
+  "description": "Accessible async state management for semantic button elements.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./docs": {
+      "types": "./dist/docs.d.ts",
+      "import": "./dist/docs.js"
+    },
+    "./addons/form": {
+      "types": "./dist/addons/form.d.ts",
+      "import": "./dist/addons/form.js"
+    },
+    "./addons/debug": {
+      "types": "./dist/addons/debug.d.ts",
+      "import": "./dist/addons/debug.js"
+    },
+    "./addons/retry": {
+      "types": "./dist/addons/retry.d.ts",
+      "import": "./dist/addons/retry.js"
+    },
+    "./addons/status": {
+      "types": "./dist/addons/status.d.ts",
+      "import": "./dist/addons/status.js"
+    },
+    "./addons/presets": {
+      "types": "./dist/addons/presets.d.ts",
+      "import": "./dist/addons/presets.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean && tsdown && npm run copy:assets",
+    "copy:assets": "node scripts/copy-assets.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "pack:check": "npm pack --dry-run",
+    "prepack": "npm run build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run test && npm run typecheck && npm run build && changeset publish"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "button",
+    "async",
+    "aria",
+    "typescript"
+  ],
+  "author": "Vasileios Mitsaras",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmitsaras/a11y-async-button.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vmitsaras/a11y-async-button/issues"
+  },
+  "homepage": "https://github.com/vmitsaras/a11y-async-button#readme",
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "happy-dom": "^20.10.6",
+    "tsdown": "^0.22.4",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  }
+}
