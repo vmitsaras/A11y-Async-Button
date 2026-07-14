@@ -76,7 +76,7 @@
   "bugs": {
     "url": "https://github.com/vmitsaras/a11y-async-button/issues"
   },
-  "homepage": "https://github.com/vmitsaras/a11y-async-button#readme",
+  "homepage": "https://vmitsaras.github.io/a11y-async-button/",
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "happy-dom": "^20.10.6",

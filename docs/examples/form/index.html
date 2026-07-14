@@ -6,7 +6,7 @@
     <title>Accessible Form Submit Example | A11y Async Button</title>
     <meta
       name="description"
-      content="Use native form validation with the optional A11y Async Button form addon to simulate server responses and show accessible async submit states."
+      content="Combine A11y Form Validator with the A11y Async Button form addon for accessible validation, error summaries, and async submit states."
     />
     <meta name="robots" content="index,follow" />
     <link
@@ -14,6 +14,10 @@
       href="https://vmitsaras.github.io/a11y-async-button/examples/form/"
     />
     <link rel="stylesheet" href="../../assets/a11y-async-button.css" />
+    <link
+      rel="stylesheet"
+      href="../../assets/vendor/a11y-form-validator/styles.css"
+    />
     <link rel="stylesheet" href="../../assets/demo-page.css" />
   </head>
   <body>
@@ -28,14 +32,13 @@
         <p class="demo-hero__eyebrow">Addon integration example</p>
         <h1>Validated async support request</h1>
         <p class="demo-hero__description">
-          A support intake form uses native browser validation, then hands a
-          valid submit to the A11y Async Button form addon for loading, success,
-          error, and visible status feedback.
+          A support intake form uses A11y Form Validator for inline errors and
+          a focused summary, then hands a valid submit to the A11y Async Button
+          form addon for loading, success, error, and visible status feedback.
         </p>
         <nav class="demo-hero__links" aria-label="Example links">
           <a class="demo-button demo-button--primary" href="#demo">Try example</a>
           <a class="demo-button" href="../../">Full documentation</a>
-          <a class="demo-button" href="../basic/">Basic example</a>
         </nav>
       </div>
     </header>
@@ -53,7 +56,7 @@
           </div>
           <div>
             <dt>Validation</dt>
-            <dd>Native constraints and custom validity messages</dd>
+            <dd>A11y Form Validator inline errors and summary</dd>
           </div>
           <div>
             <dt>Pattern</dt>
@@ -95,7 +98,8 @@
         <form
           class="demo-form"
           data-a11y-async-form
-          data-a11y-async-form-validate="true"
+          data-a11y-form-validator
+          data-a11y-async-form-validate="false"
           data-a11y-async-form-loading-text="Sending request..."
           data-a11y-async-form-success-text="Support request saved. Confirmation REQ-2048 is queued."
           data-a11y-async-form-error-text="The simulated request failed. Review the details and try again."
@@ -131,7 +135,8 @@
               required
               minlength="3"
               maxlength="24"
-              pattern="[a-z0-9-]+"
+              pattern="[a-z0-9\-]+"
+              data-validate="available-workspace"
               value="ada-lab"
               aria-describedby="support-workspace-hint"
               data-message-required="Enter the requested workspace slug."
@@ -245,6 +250,89 @@
         </form>
       </section>
 
+      <section class="demo-section" id="native-demo" aria-labelledby="native-demo-title">
+        <div class="demo-section__header">
+          <p class="demo-section__eyebrow">Compact standalone example</p>
+          <h2 id="native-demo-title">Submit with native validation only</h2>
+          <p>
+            This shorter form uses the browser’s built-in constraints and the
+            form addon—no external validator. Change the response to compare
+            success and error states.
+          </p>
+        </div>
+
+        <form
+          class="demo-form"
+          data-native-async-form
+          data-a11y-async-form
+          data-a11y-async-form-validate="true"
+        >
+          <div class="demo-form__field">
+            <label class="demo-form__label" for="invite-email">Email to invite</label>
+            <input
+              class="demo-form__input"
+              id="invite-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="teammate@example.com"
+            />
+          </div>
+
+          <div class="demo-form__field">
+            <label class="demo-form__label" for="invite-outcome">Simulated response</label>
+            <select class="demo-form__input" id="invite-outcome" name="outcome">
+              <option value="success">Invitation sent</option>
+              <option value="error">Temporary error</option>
+            </select>
+          </div>
+
+          <div class="demo-form__actions">
+            <button
+              class="a11y-async-button"
+              type="submit"
+              data-a11y-async-button
+              data-a11y-async-form-button
+              data-loading-text="Sending invite..."
+              data-success-text="Invite sent"
+              data-error-text="Try again"
+              data-reset-delay="1800"
+              data-preserve-width="true"
+              data-prevent-double-click="true"
+            >
+              <span class="a11y-async-button__text" data-a11y-async-button-text>
+                Send invitation
+              </span>
+            </button>
+          </div>
+
+          <p class="demo-status" data-a11y-async-form-status>
+            Ready to send an invitation.
+          </p>
+        </form>
+
+        <div class="demo-two-column">
+          <div class="demo-callout">
+            <h3>Options demonstrated</h3>
+            <ul class="demo-list">
+              <li><code>validate: true</code> uses native constraint validation.</li>
+              <li><code>resetDelay: 1800</code> restores the idle state automatically.</li>
+              <li><code>preserveWidth</code> avoids layout shift as labels change.</li>
+              <li><code>preventDoubleClick</code> blocks duplicate submissions.</li>
+            </ul>
+          </div>
+          <div class="demo-callout">
+            <h3>Try it</h3>
+            <ul class="demo-list">
+              <li>Submit the empty form to see native validation.</li>
+              <li>Enter an email and compare both simulated responses.</li>
+              <li>Activate the button repeatedly while it is loading.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section class="demo-section" aria-labelledby="try-title">
         <div class="demo-section__header">
           <p class="demo-section__eyebrow">Try it</p>
@@ -261,11 +349,14 @@
       <section class="demo-section" aria-labelledby="code-title">
         <div class="demo-section__header">
           <p class="demo-section__eyebrow">Example code</p>
-          <h2 id="code-title">Use native validation with the form addon</h2>
+          <h2 id="code-title">Validate first, then hand off the submit</h2>
         </div>
-        <pre><code>import { createAsyncButtonForm } from "a11y-async-button/addons/form";
+        <pre><code>import { createFormValidator, createDefaultPreset } from "a11y-form-validator";
+import { createAsyncButtonForm } from "a11y-async-button/addons/form";
+
+const validator = createFormValidator(form, createDefaultPreset());
 createAsyncButtonForm(form, {
-  validate: true,
+  validate: false,
   onSubmit: async ({ formData, setStatus }) =&gt; {
     setStatus("Sending request...");
     await sendSupportRequest(formData);
@@ -304,7 +395,7 @@ createAsyncButtonForm(form, {
             <h3>Validation and focus</h3>
             <ul class="demo-list">
               <li>Native labels, inputs, textarea, radio buttons, checkbox, and submit button behavior remain intact.</li>
-              <li>Browser validation identifies and focuses the first invalid field after blocked submits or server errors.</li>
+              <li>A11y Form Validator connects inline errors to each control and focuses a linked error summary after blocked submits or server errors.</li>
               <li>The validation gate runs before the async submit so users do not see loading for known invalid data.</li>
             </ul>
           </div>
@@ -313,7 +404,7 @@ createAsyncButtonForm(form, {
             <ul class="demo-list">
               <li>The async form addon keeps repeat submits from starting during the simulated request.</li>
               <li>The visible status paragraph is a polite live region with text for loading, success, invalid, and error states.</li>
-              <li>The example is self-contained and does not require a sibling repository or external validation package.</li>
+              <li>The demo vendors the published validator browser assets so it works on static hosting; production apps should import both installed packages.</li>
             </ul>
           </div>
         </div>
@@ -354,8 +445,13 @@ createAsyncButtonForm(form, {
 
     <script type="module">
       import { createAsyncButtonForm } from "../../assets/addons/form.js";
+      import {
+        createDefaultPreset,
+        createFormValidator
+      } from "../../assets/vendor/a11y-form-validator/index.min.js";
 
       const form = document.querySelector("[data-a11y-async-form]");
+      const nativeForm = document.querySelector("[data-native-async-form]");
       const reservedWorkspaces = new Set(["admin", "support", "root"]);
 
       function wait(ms) {
@@ -398,28 +494,43 @@ createAsyncButtonForm(form, {
       }
 
       if (form instanceof HTMLFormElement) {
-        const email = form.elements.namedItem("email");
-        const workspace = form.elements.namedItem("workspace");
+        const validator = createFormValidator(form, {
+          ...createDefaultPreset(),
+          validateOn: ["blur", "input"],
+          debounce: 250
+        });
+        let allowValidatedSubmit = false;
         let lastErrorStatus = "";
 
-        function validateWorkspace() {
-          if (!(workspace instanceof HTMLInputElement)) return;
-          const value = workspace.value.trim().toLowerCase();
-          workspace.setCustomValidity(
-            reservedWorkspaces.has(value)
-              ? "That workspace URL is reserved. Try a team-specific slug."
-              : ""
-          );
-        }
-
-        validateWorkspace();
-        workspace?.addEventListener("input", validateWorkspace);
-        email?.addEventListener("input", () => {
-          if (email instanceof HTMLInputElement) email.setCustomValidity("");
+        validator.registerRule("availableWorkspace", async ({ value }) => {
+          await wait(220);
+          return {
+            valid: !reservedWorkspaces.has(String(value).trim().toLowerCase()),
+            message: "That workspace URL is reserved. Try a team-specific slug."
+          };
         });
 
+        form.addEventListener("submit", async (event) => {
+          if (allowValidatedSubmit) {
+            allowValidatedSubmit = false;
+            return;
+          }
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+
+          const valid = await validator.validate({ reason: "submit" });
+          if (!valid) {
+            validator.focusOnError();
+            return;
+          }
+
+          allowValidatedSubmit = true;
+          form.requestSubmit(event.submitter);
+        }, { capture: true });
+
         const asyncForm = createAsyncButtonForm(form, {
-          validate: true,
+          validate: false,
           resetDelay: 2400,
           onSubmit: async ({ formData, setStatus: setAsyncStatus }) => {
               lastErrorStatus = "";
@@ -432,13 +543,8 @@ createAsyncButtonForm(form, {
               if (response.ok) return;
 
               if (response.type === "server-error") {
-                if (email instanceof HTMLInputElement) {
-                  email.setCustomValidity(response.errors.fields.email);
-                }
-                if (workspace instanceof HTMLInputElement) {
-                  workspace.setCustomValidity(response.errors.fields.workspace);
-                }
-                form.reportValidity();
+                validator.setErrors(response.errors);
+                validator.focusOnError();
                 lastErrorStatus =
                   "Server rejected two fields. Update them, then submit again.";
                 throw new Error("Simulated server validation response.");
@@ -452,6 +558,27 @@ createAsyncButtonForm(form, {
 
         form.addEventListener("a11y-async-button-form:error", () => {
           if (lastErrorStatus) asyncForm.setStatus(lastErrorStatus, "error");
+        });
+      }
+
+      if (nativeForm instanceof HTMLFormElement) {
+        createAsyncButtonForm(nativeForm, {
+          validate: true,
+          resetDelay: 1800,
+          preserveWidth: true,
+          preventDoubleClick: true,
+          idleStatusText: "Ready to send an invitation.",
+          loadingStatusText: "Sending the invitation...",
+          successStatusText: "Invitation sent successfully.",
+          errorStatusText: "The invitation could not be sent. Try again.",
+          invalidStatusText: "Enter a valid email address before sending.",
+          onSubmit: async ({ formData }) => {
+            await wait(850);
+
+            if (formData.get("outcome") === "error") {
+              throw new Error("Simulated invitation error.");
+            }
+          }
         });
       }
     </script>

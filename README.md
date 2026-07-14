@@ -489,22 +489,6 @@ where applicable.
 - Restores original ARIA state and removes owned live regions in `destroy()`.
 - Respects `prefers-reduced-motion` in the default CSS.
 
-## Examples
-
-See [`docs/examples/basic`](docs/examples/basic),
-[`docs/examples/icon-text`](docs/examples/icon-text), and
-[`docs/examples/form`](docs/examples/form). The retry and debug addon examples
-live at [`docs/examples/retry`](docs/examples/retry) and
-[`docs/examples/debug`](docs/examples/debug). The visible status addon example
-lives at [`docs/examples/status`](docs/examples/status), and the preset example
-lives at [`docs/examples/presets`](docs/examples/presets).
-
-Run the build first because the example imports from `dist`.
-
-```bash
-npm run build
-```
-
 ## Docs metadata
 
 ```ts

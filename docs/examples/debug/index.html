@@ -25,16 +25,16 @@
 
     <header class="demo-hero">
       <div class="demo-page__shell">
-        <p class="demo-hero__eyebrow">Addon example</p>
-        <h1>Async button debug report</h1>
+        <p class="demo-hero__eyebrow">Developer tool · Interactive example</p>
+        <h1>Catch async button mistakes</h1>
         <p class="demo-hero__description">
-          The optional debug addon scans async button and form-addon markup,
-          then returns structured findings with practical recommendations.
+          This development-only checker scans your A11y Async Button markup for
+          broken semantics, missing labels, invalid settings, and form issues—then
+          explains how to fix each one. It reports problems without changing the page.
         </p>
         <nav class="demo-hero__links" aria-label="Example links">
           <a class="demo-button demo-button--primary" href="#demo">Try example</a>
           <a class="demo-button" href="../../">Full documentation</a>
-          <a class="demo-button" href="../form/">Form addon example</a>
         </nav>
       </div>
     </header>
@@ -43,7 +43,7 @@
       <section class="demo-section demo-facts" aria-labelledby="facts-title">
         <div class="demo-section__header">
           <p class="demo-section__eyebrow">Quick facts</p>
-          <h2 id="facts-title">What this addon covers</h2>
+          <h2 id="facts-title">At a glance</h2>
         </div>
         <dl class="demo-facts__list">
           <div>
@@ -72,10 +72,11 @@
       >
         <div class="demo-section__header">
           <p class="demo-section__eyebrow">Live demo</p>
-          <h2 id="demo-title">Scan intentionally flawed markup</h2>
+          <h2 id="demo-title">Try the checker on a broken example</h2>
           <p>
-            The sample markup is hidden from the interactive page but remains in
-            the DOM so the debug addon can inspect it and render findings below.
+            We placed several intentional accessibility and configuration mistakes
+            in a hidden sample. Run the scan to see what the addon catches and the
+            fix it recommends for every issue.
           </p>
         </div>
 
@@ -222,15 +223,20 @@ for (const finding of report.findings) {
       const logConsole = document.querySelector("[data-log-console]");
       const summary = document.querySelector("[data-debug-summary]");
       const results = document.querySelector("[data-debug-results]");
+      const scanRegion = runButton?.closest(".demo-example");
+      const scanDelay = 800;
+      let hasRun = false;
+      let isScanning = false;
 
       function appendText(parent, text) {
         parent.appendChild(document.createTextNode(text));
       }
 
-      function renderFinding(finding) {
+      function renderFinding(finding, index) {
         const item = document.createElement("li");
         item.className = "demo-finding";
         item.dataset.severity = finding.severity;
+        item.style.setProperty("--demo-finding-index", index);
 
         const title = document.createElement("p");
         title.className = "demo-finding__title";
@@ -258,21 +264,52 @@ for (const finding of report.findings) {
 
         summary.textContent = `${report.findings.length} findings: ${report.errorCount} errors, ${report.warningCount} warnings, ${report.infoCount} info.`;
         results.replaceChildren(...report.findings.map(renderFinding));
+
+        if (runButton instanceof HTMLButtonElement) {
+          runButton.textContent = "Run scan again";
+        }
+      }
+
+      function setControlsDisabled(disabled) {
+        if (runButton instanceof HTMLButtonElement) runButton.disabled = disabled;
+        if (includeInfo instanceof HTMLInputElement) includeInfo.disabled = disabled;
+        if (logConsole instanceof HTMLInputElement) logConsole.disabled = disabled;
+      }
+
+      function runScan() {
+        if (isScanning || !summary || !results) return;
+
+        hasRun = true;
+        isScanning = true;
+        setControlsDisabled(true);
+        scanRegion?.setAttribute("aria-busy", "true");
+        runButton.textContent = "Scanning…";
+        summary.textContent = "Scanning the example for accessibility and configuration issues…";
+        results.replaceChildren();
+
+        window.setTimeout(() => {
+          renderReport();
+          isScanning = false;
+          setControlsDisabled(false);
+          scanRegion?.removeAttribute("aria-busy");
+        }, scanDelay);
       }
 
       if (runButton instanceof HTMLButtonElement) {
-        runButton.addEventListener("click", renderReport);
+        runButton.addEventListener("click", runScan);
       }
 
       if (includeInfo instanceof HTMLInputElement) {
-        includeInfo.addEventListener("change", renderReport);
+        includeInfo.addEventListener("change", () => {
+          if (hasRun && !isScanning) renderReport();
+        });
       }
 
       if (logConsole instanceof HTMLInputElement) {
-        logConsole.addEventListener("change", renderReport);
+        logConsole.addEventListener("change", () => {
+          if (hasRun && !isScanning) renderReport();
+        });
       }
-
-      renderReport();
     </script>
   </body>
 </html>
