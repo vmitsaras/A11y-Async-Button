@@ -2,7 +2,7 @@
 
 Accessible async state management for semantic button elements.
 
-[Try the live demo](https://vmitsaras.github.io/a11y-async-button/)
+[Try the live demo](https://vmitsaras.github.io/A11y-Async-Button/)
 
 - Zero runtime dependencies
 - Preserves native button semantics
