@@ -494,3 +494,99 @@ where applicable.
 ```ts
 import { docs } from "a11y-async-button/docs";
 ```
+
+## Compatibility
+
+- Browser runtime: Baseline Widely Available browsers with standard DOM,
+  `CustomEvent`, `WeakMap`, and `matchMedia` support.
+- Module format: ESM only. CommonJS consumers need an ESM-aware build step or
+  dynamic `import()`.
+- Node.js: version 22 or newer is supported for Node-based tooling and package
+  consumption. The plugin itself requires a browser DOM when instances are
+  created.
+- Frameworks: the package is framework agnostic and can be used anywhere a
+  semantic `HTMLButtonElement` is available.
+
+Older browsers and embedded webviews outside Baseline Widely Available are not
+part of the support target. Visual enhancements in the demo pages are
+progressive; unsupported decorative CSS does not affect the plugin's core
+behavior.
+
+## Limitations
+
+- The plugin enhances real `<button>` elements; it does not turn arbitrary
+  elements into buttons.
+- It manages UI state and announcements but does not perform network requests,
+  retries, validation, or persistence unless the corresponding callback or
+  opt-in addon is provided.
+- Instantiating the plugin requires a browser DOM. Importing the package is
+  side-effect free, but server-side rendering code must defer initialization
+  until the relevant elements exist in the browser.
+- The default stylesheet is optional. Projects that omit it must provide their
+  own visible focus, state, contrast, and reduced-motion treatment.
+- Accessibility behavior can vary by browser and assistive technology. The
+  documented semantics and automated tests are not a claim of universal WCAG
+  conformance for every integration.
+
+## Development
+
+Local development requires Node.js `^22.18.0` or `>=24.11.0`, matching the
+current build tool requirements.
+
+```bash
+npm install
+npm test
+npm run typecheck
+npm run build
+npm run pack:check
+```
+
+To preview the documentation and examples locally, serve the repository root
+and open `http://127.0.0.1:4173/docs/`:
+
+```bash
+python3 -m http.server 4173
+```
+
+The build writes package artifacts to `dist/` and refreshes the generated
+JavaScript and CSS assets used by the documentation pages.
+
+## Release process
+
+This repository uses Changesets to record release intent, update versions and
+the changelog, and publish the prepared package.
+
+1. Add a changeset for each user-facing change:
+
+   ```bash
+   npm run changeset
+   ```
+
+2. Verify pending release intent and run the full release gate:
+
+   ```bash
+   npm run changeset:status
+   npm run release:check
+   ```
+
+3. Apply pending version and changelog updates, then review and commit them:
+
+   ```bash
+   npm run version-packages
+   ```
+
+4. From the committed release revision, publish to npm and create the matching
+   Git tag:
+
+   ```bash
+   npm run release
+   git push --follow-tags
+   ```
+
+The final step changes npm and Git state. Run it only with the intended npm
+account, a clean worktree, and the release commit already pushed or ready to
+push.
+
+## License
+
+Released under the [MIT License](LICENSE).
